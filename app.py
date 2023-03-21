@@ -22,13 +22,11 @@ engine = create_engine("sqlite:///output/MarchMadnessML.sqlite")
 Base = automap_base()
 # reflect the tables
 Base.prepare(autoload_with=engine)
-# reflect=True
 # print(Base.classes)
 
 # Save reference to the table
-# cbbModel = Base.classes.MarchMadnessML
+Tourney_Lat_Lng = Base.classes.Lat_Lng
 MarchMadness = Base.classes.Tournament_Predictions
-# cbbModel_Predictions = Base.classes.MarchMadnessML
 
 #################################################
 # Flask Setup
@@ -48,36 +46,18 @@ def welcome():
     return (
         f"Available Routes:<br/>"
         f"/api/v1.0/MarchMadness<br/>"
+        f"/api/v1.0/MarchMadnessLatLng<br/>"
     )
 
-# ZHVI and Risk Index data route:
-# @app.route("/api/v1.0/cbbModel")
-# def home_risk():
-#    # Create our session (link) from Python to the DB
-#     session = Session(engine)
-
-#     """Return a json of the columns below"""
-#     # Query all columns that we want from the dataset:
-#     results = session.query(cbbModel.TEAM, cbbModel.CONF, 
-#     cbbModel.G, cbbModel.W, cbbModel.ADJOE, 
-#     cbbModel.ADJDE, cbbModel.BARTHAG, cbbModel.EFG_O,
-#     cbbModel.EFG_D, cbbModel.TOR, 
-#     cbbModel.TORD, cbbModel.ORB, cbbModel.FTR, cbbModel.FTRD, cbbModel.TWOP_O, 
-#     cbbModel.TWOP_D, cbbModel.THREEP_O, 
-#     cbbModel.THREEP_D, cbbModel.ADJ_T, 
-#     cbbModel.WAB, cbbModel.POSTSEASON,
-#     cbbModel.SEED, cbbModel.YEAR).all() 
-    
-
-# ZHVI and Risk Index data route:
+# Tourney Predictions data route:
 @app.route("/api/v1.0/MarchMadness")
-def home_risk():
+def tourney_data():
    # Create our session (link) from Python to the DB
     session = Session(engine)
 
     """Return a json of the columns below"""
     # Query all columns that we want from the dataset:
-    results = session.query(MarchMadness.RK, MarchMadness.TEAM, MarchMadness.CONF, 
+    results = session.query(MarchMadness.index, MarchMadness.RK, MarchMadness.TEAM, MarchMadness.CONF, 
     MarchMadness.G, MarchMadness.W, MarchMadness.ADJOE, 
     MarchMadness.ADJDE, MarchMadness.BARTHAG, MarchMadness.EFG_O,
     MarchMadness.EFG_D, MarchMadness.TOR, 
@@ -85,63 +65,66 @@ def home_risk():
     MarchMadness.TWOP_D, MarchMadness.THREEP_O, 
     MarchMadness.THREEP_D, MarchMadness.ADJ_T, 
     MarchMadness.WAB, MarchMadness.POSTSEASON,
-    MarchMadness.SEED).all() 
-
-# ZHVI and Risk Index data route:
-# @app.route("/api/v1.0/cbbModel_Predictions")
-# def home_risk():
-#    # Create our session (link) from Python to the DB
-#     session = Session(engine)
-
-#     """Return a json of the columns below"""
-#     # Query all columns that we want from the dataset:
-#     results = session.query(cbbModel_Predictions.RK, cbbModel_Predictions.TEAM, cbbModel_Predictions.CONF, 
-#     cbbModel_Predictions.G, cbbModel_Predictions.W, cbbModel_Predictions.ADJOE, 
-#     cbbModel_Predictions.ADJDE, cbbModel_Predictions.BARTHAG, cbbModel_Predictions.EFG_O,
-#     cbbModel_Predictions.EFG_D, cbbModel_Predictions.TOR, 
-#     cbbModel_Predictions.TORD, cbbModel_Predictions.ORB, cbbModel_Predictions.FTR, cbbModel_Predictions.FTRD, cbbModel_Predictions.TWOP_O, 
-#     cbbModel_Predictions.TWOP_D, cbbModel_Predictions.THREEP_O, 
-#     cbbModel_Predictions.THREEP_D, cbbModel_Predictions.ADJ_T, 
-#     cbbModel_Predictions.WAB, cbbModel_Predictions.POSTSEASON).all() 
+    MarchMadness.SEED).all()
 
     session.close()
 
-    # Create a dictionary from the row data and append to a list of all_hv_risk
-    # cbbModelModel1 = []
-    # for TEAM, CONF, G, W, ADJOE, ADJDE, BARTHAG, EFG_O, EFG_D, TOR, TORD,ORB, FTR, FTRD, TWOP_O, TWOP_D, THREEP_O, THREEP_D, ADJ_T, WAB, POSTSEASON, SEED, YEAR in results:
-    #     cbbModel = {}
-    #     cbbModel["TEAM"] = TEAM
-    #     cbbModel["CONF"] = CONF
-    #     cbbModel["G"] = G
-    #     cbbModel["W"] = W
-    #     cbbModel["ADJOE"] = ADJOE
-    #     cbbModel["ADJDE"] = ADJDE
-    #     cbbModel["BARTHAG"] = BARTHAG
-    #     cbbModel["EFG_O"] = EFG_O
-    #     cbbModel["EFG_D"] = EFG_D
-    #     cbbModel["TOR"] = TOR
-    #     cbbModel["TORD"] = TORD
-    #     cbbModel["ORB"] = ORB
-    #     cbbModel["FTR"] = FTR
-    #     cbbModel["FTRD"] = FTRD
-    #     cbbModel["TWOP_O"] = TWOP_O
-    #     cbbModel["TWOP_D"] = TWOP_D
-    #     cbbModel["THREEP_O"] = THREEP_O
-    #     cbbModel["THREEP_D"] = THREEP_D
-    #     cbbModel["ADJ_T"] = ADJ_T
-    #     cbbModel["WAB"] = WAB
-    #     cbbModel["POSTSEASON"] = POSTSEASON
-    #     cbbModel["SEED"] = SEED
-    #     cbbModel["YEAR"] = YEAR
-    #     # Append the cbbModel dictionary to the all_hv_risk list to make a json:
-    #     cbbModelModel1.append(cbbModel)
-    # Return the all_hv_risk json using jsonify to make it look nice:
-    # return jsonify(cbbModelModel1)  
+    # Create a dictionary from the row data and append to a list of tourney_data
+    tourney_data = []
+    for index, TEAM, CONF, G, W, ADJOE, ADJDE, BARTHAG, EFG_O, EFG_D, TOR, TORD,ORB, FTR, FTRD, TWOP_O, TWOP_D, THREEP_O, THREEP_D, ADJ_T, WAB, POSTSEASON, SEED, YEAR in results:
+        cbbModel = {}
+        cbbModel["index"] = index
+        cbbModel["TEAM"] = TEAM
+        cbbModel["CONF"] = CONF
+        cbbModel["G"] = G
+        cbbModel["W"] = W
+        cbbModel["ADJOE"] = ADJOE
+        cbbModel["ADJDE"] = ADJDE
+        cbbModel["BARTHAG"] = BARTHAG
+        cbbModel["EFG_O"] = EFG_O
+        cbbModel["EFG_D"] = EFG_D
+        cbbModel["TOR"] = TOR
+        cbbModel["TORD"] = TORD
+        cbbModel["ORB"] = ORB
+        cbbModel["FTR"] = FTR
+        cbbModel["FTRD"] = FTRD
+        cbbModel["TWOP_O"] = TWOP_O
+        cbbModel["TWOP_D"] = TWOP_D
+        cbbModel["THREEP_O"] = THREEP_O
+        cbbModel["THREEP_D"] = THREEP_D
+        cbbModel["ADJ_T"] = ADJ_T
+        cbbModel["WAB"] = WAB
+        cbbModel["POSTSEASON"] = POSTSEASON
+        cbbModel["SEED"] = SEED
+        cbbModel["YEAR"] = YEAR
+        # Append the cbbModel dictionary to the tourney_data list to make a json:
+        tourney_data.append(cbbModel)
+    # Return the tourney_data json using jsonify to make it look nice:
+    return jsonify(tourney_data)
 
+# Tournament teams lat and lng data route:
+@app.route("/api/v1.0/MarchMadnessLatLng")
+def tourney_latlng_data():
+   # Create our session (link) from Python to the DB
+    session = Session(engine)
 
-    Tournament_PredictionsModel2 = []
-    for RK, TEAM, CONF, G, W, ADJOE, ADJDE, BARTHAG, EFG_O, EFG_D, TOR, TORD,ORB, FTR, FTRD, TWOP_O, TWOP_D, THREEP_O, THREEP_D, ADJ_T, WAB, POSTSEASON, SEED in results:
+    """Return a json of the columns below"""
+    # Query all columns that we want from the dataset:
+    results2 = session.query(Tourney_Lat_Lng.index, Tourney_Lat_Lng.RK, Tourney_Lat_Lng.TEAM, Tourney_Lat_Lng.CONF, 
+    Tourney_Lat_Lng.G, Tourney_Lat_Lng.W, Tourney_Lat_Lng.ADJOE, 
+    Tourney_Lat_Lng.ADJDE, Tourney_Lat_Lng.BARTHAG, Tourney_Lat_Lng.EFG_O,
+    Tourney_Lat_Lng.EFG_D, Tourney_Lat_Lng.TOR, 
+    Tourney_Lat_Lng.TORD, Tourney_Lat_Lng.ORB, Tourney_Lat_Lng.FTR, Tourney_Lat_Lng.FTRD, Tourney_Lat_Lng.TWOP_O, 
+    Tourney_Lat_Lng.TWOP_D, Tourney_Lat_Lng.THREEP_O, 
+    Tourney_Lat_Lng.THREEP_D, Tourney_Lat_Lng.ADJ_T, 
+    Tourney_Lat_Lng.WAB, Tourney_Lat_Lng.POSTSEASON, Tourney_Lat_Lng.SEED, Tourney_Lat_Lng.LONGITUD, Tourney_Lat_Lng.LATITUDE).all() 
+
+    session.close()
+
+    Lat_Lng_data = []
+    for index, RK, TEAM, CONF, G, W, ADJOE, ADJDE, BARTHAG, EFG_O, EFG_D, TOR, TORD,ORB, FTR, FTRD, TWOP_O, TWOP_D, THREEP_O, THREEP_D, ADJ_T, WAB, POSTSEASON, SEED, LONGITUD, LATITUDE in results2:
         MarchMadnessdict = {}
+        MarchMadnessdict["index"] = index
         MarchMadnessdict["RK"] = RK
         MarchMadnessdict["TEAM"] = TEAM
         MarchMadnessdict["CONF"] = CONF
@@ -165,41 +148,13 @@ def home_risk():
         MarchMadnessdict["WAB"] = WAB
         MarchMadnessdict["POSTSEASON"] = POSTSEASON
         MarchMadnessdict["SEED"] = SEED
-        # Append the cbbModel dictionary to the all_hv_risk list to make a json:
-        Tournament_PredictionsModel2.append(MarchMadnessdict)
-    # Return the all_hv_risk json using jsonify to make it look nice:
-    return jsonify(Tournament_PredictionsModel2)  
+        MarchMadnessdict["LONGITUD"] = LONGITUD
+        MarchMadnessdict["LATITUDE"] = LATITUDE
+        # Append the march madness dictionary to the Lat_Lng_data list to make a json:
+        Lat_Lng_data.append(MarchMadnessdict)
+        # Return the Lat_Lng_data json using jsonify to make it look nice:
+    return jsonify(Lat_Lng_data)  
 
-# cbbModel_PredictionsModel3 = []
-# for RK, TEAM, CONF, G, W, ADJOE, ADJDE, BARTHAG, EFG_O, EFG_D, TOR, TORD,ORB, FTR, FTRD, TWOP_O, TWOP_D, THREEP_O, THREEP_D, ADJ_T, WAB, POSTSEASON, SEED in results:
-#         cbbModel_Predictions = {}
-#         cbbModel_Predictions["RK"] = RK
-#         cbbModel_Predictions["TEAM"] = TEAM
-#         cbbModel_Predictions["CONF"] = CONF
-#         cbbModel_Predictions["G"] = G
-#         cbbModel_Predictions["W"] = W
-#         cbbModel_Predictions["ADJOE"] = ADJOE
-#         cbbModel_Predictions["ADJDE"] = ADJDE
-#         cbbModel_Predictions["BARTHAG"] = BARTHAG
-#         cbbModel_Predictions["EFG_O"] = EFG_O
-#         cbbModel_Predictions["EFG_D"] = EFG_D
-#         cbbModel_Predictions["TOR"] = TOR
-#         cbbModel_Predictions["TORD"] = TORD
-#         cbbModel_Predictions["ORB"] = ORB
-#         cbbModel_Predictions["FTR"] = FTR
-#         cbbModel_Predictions["FTRD"] = FTRD
-#         cbbModel_Predictions["TWOP_O"] = TWOP_O
-#         cbbModel_Predictions["TWOP_D"] = TWOP_D
-#         cbbModel_Predictions["THREEP_O"] = THREEP_O
-#         cbbModel_Predictions["THREEP_D"] = THREEP_D
-#         cbbModel_Predictions["ADJ_T"] = ADJ_T
-#         cbbModel_Predictions["WAB"] = WAB
-#         cbbModel_Predictions["POSTSEASON"] = POSTSEASON
-#         cbbModel_Predictions["SEED"] = SEED
-#         # Append the cbbModel dictionary to the all_hv_risk list to make a json:
-#         cbbModel_PredictionsModel3.append(cbbModel_Predictions)
-#     # Return the all_hv_risk json using jsonify to make it look nice:
-# return jsonify(cbbModel_PredictionsModel3)  
 
 if __name__ == "__main__":
     app.run(debug=True) 
