@@ -57,7 +57,7 @@ def tourney_data():
 
     """Return a json of the columns below"""
     # Query all columns that we want from the dataset:
-    results = session.query(MarchMadness.index, MarchMadness.RK, MarchMadness.TEAM, MarchMadness.CONF, 
+    results = session.query(MarchMadness.RK, MarchMadness.TEAM, MarchMadness.CONF, 
     MarchMadness.G, MarchMadness.W, MarchMadness.ADJOE, 
     MarchMadness.ADJDE, MarchMadness.BARTHAG, MarchMadness.EFG_O,
     MarchMadness.EFG_D, MarchMadness.TOR, 
@@ -71,9 +71,8 @@ def tourney_data():
 
     # Create a dictionary from the row data and append to a list of tourney_data
     tourney_data = []
-    for index, TEAM, CONF, G, W, ADJOE, ADJDE, BARTHAG, EFG_O, EFG_D, TOR, TORD,ORB, FTR, FTRD, TWOP_O, TWOP_D, THREEP_O, THREEP_D, ADJ_T, WAB, POSTSEASON, SEED, YEAR in results:
+    for TEAM, CONF, G, W, ADJOE, ADJDE, BARTHAG, EFG_O, EFG_D, TOR, TORD,ORB, FTR, FTRD, TWOP_O, TWOP_D, THREEP_O, THREEP_D, ADJ_T, WAB, POSTSEASON, SEED, YEAR in results:
         cbbModel = {}
-        cbbModel["index"] = index
         cbbModel["TEAM"] = TEAM
         cbbModel["CONF"] = CONF
         cbbModel["G"] = G
@@ -110,7 +109,7 @@ def tourney_latlng_data():
 
     """Return a json of the columns below"""
     # Query all columns that we want from the dataset:
-    results2 = session.query(Tourney_Lat_Lng.index, Tourney_Lat_Lng.RK, Tourney_Lat_Lng.TEAM, Tourney_Lat_Lng.CONF, 
+    results2 = session.query(Tourney_Lat_Lng.RK, Tourney_Lat_Lng.TEAM, Tourney_Lat_Lng.CONF, 
     Tourney_Lat_Lng.G, Tourney_Lat_Lng.W, Tourney_Lat_Lng.ADJOE, 
     Tourney_Lat_Lng.ADJDE, Tourney_Lat_Lng.BARTHAG, Tourney_Lat_Lng.EFG_O,
     Tourney_Lat_Lng.EFG_D, Tourney_Lat_Lng.TOR, 
@@ -122,9 +121,8 @@ def tourney_latlng_data():
     session.close()
 
     Lat_Lng_data = []
-    for index, RK, TEAM, CONF, G, W, ADJOE, ADJDE, BARTHAG, EFG_O, EFG_D, TOR, TORD,ORB, FTR, FTRD, TWOP_O, TWOP_D, THREEP_O, THREEP_D, ADJ_T, WAB, POSTSEASON, SEED, LONGITUD, LATITUDE in results2:
+    for RK, TEAM, CONF, G, W, ADJOE, ADJDE, BARTHAG, EFG_O, EFG_D, TOR, TORD,ORB, FTR, FTRD, TWOP_O, TWOP_D, THREEP_O, THREEP_D, ADJ_T, WAB, POSTSEASON, SEED, LONGITUD, LATITUDE in results2:
         MarchMadnessdict = {}
-        MarchMadnessdict["index"] = index
         MarchMadnessdict["RK"] = RK
         MarchMadnessdict["TEAM"] = TEAM
         MarchMadnessdict["CONF"] = CONF
