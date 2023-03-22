@@ -3,7 +3,7 @@
 
 #### **Team members:** Evgeniya Kardashov, Connor Chapman, Tommy Hvidhyld, James LaMotte
 
-#### Live Github Pages link: 
+#### Live Github Pages link: https://tommyhvidhyld.github.io/March_Machine_Learning_Madness/
 
 
 ### **Objective**:
