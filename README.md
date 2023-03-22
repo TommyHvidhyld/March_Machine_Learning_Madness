@@ -64,15 +64,7 @@ The same columns in were dropped in preparing for the second step, and then we r
     + According to this model the columns that had the most relevance when it came to predicting the outcome of the NCAA Tournament were Wins, Adjusted Offensive Efficiency, Adjusted Defensive Efficiency, Power Rating, and Wins Above Bubble
 
     + Interesting to note, the next highest feature (although was not among the selected features) was Offensive Rebound Rate
-
-
-
-
-One hurdle that our group encountered was that the dataset only contained an abbreviated version of the college's name, and not the official name that could have been looked into on a database for finding the proper coordinates to display on a map. 
-
-
-In order to answer our question we needed 
-
+    
 
 #### **Visualizations**:
 
@@ -80,10 +72,7 @@ In order to answer our question we needed
   
 - 2. A side-by-side visual with two drop down lists for teams so that their statistics can be compared.
   
-- 3. Click-base.
-
-### Add icons with colors to show HVI levels on top of each county:
-- 
+- 3. A bar graph of predicted Sweet Sixteen teams with their predicted ranking going into the Tournament.
 
 
 ### **Conclusions**
