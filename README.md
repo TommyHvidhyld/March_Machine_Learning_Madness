@@ -7,7 +7,7 @@
 
 
 ### **Objective**:
-#### We are using supervised machine learning to compile historical data of all division 1 college basketball teams spanning 2013 to 2019, and creating a model that may accurately predict how well each team would do in subsequent tournaments. We also intend to depict the potential factors that determine if they made it into the tournament bracket.  
+#### We are using supervised machine learning to compile historical data of all division 1 college basketball teams spanning 2013 to 2019, and creating a model that may accurately predict how well each team would do in the potential subsequent postseason tournament of 2020. We also intend to depict the potential factors that determine if they made it into the tournament bracket.  
 
 ### What is our data source?
 
@@ -15,7 +15,9 @@
 
 We also drew on a source for coordinate data to combine with the previous data. 
 
-Please note that with the above dataset, due to the Covid 19 pandemic, the tournament was cancelled in 2020 due to the lockdown. We are using this as an oportunity that, in the hypothetical situation that the pandemic didn't occur, how might each of the teams performed in the competition. 
+Please note that with the above dataset, due to the Covid 19 pandemic, the tournament was cancelled in 2020 due to the lockdown. We are using this as an oportunity that, in the hypothetical situation that the pandemic didn't occur, how might each of the teams performed in the competition. We created predictions from our models on how it would have turned out.
+
+Our html website shows predictions of schools that were involved, what schools made it and how far in the bracket tournament they made it. We also have vizualizations that displays the team's features, and the events of upsets by teams that were not originally ranked high.
 
 The visualizations that we are using the depict our findings is the following: 
 
@@ -23,9 +25,48 @@ The visualizations that we are using the depict our findings is the following:
 - We are also going to click-based interractive bar graph 
 - Selecting the school will also display a .
 
-### **Data**
+### **Data Cleanup and Exploration**
 
-The data that we were using came from the College Basketball Dataset by Andrew Sundberg which is available on the Kaggle website. 
+We read in our csv to Jupyter Notebook and dropped the columns that were not needed of our first step of machine learning analysis: **Teams**, **Seed**, **Conference**, **Games** and **Year**.  
+
+We then hot encoded postseason values. If a team was recorded being able to make the postseason tournament they were assigned the value 1, if the were not able to progress they were assigned a 0 in the new postseason column.
+
+The same columns in were dropped in preparing for the second step, and then we removed all teams that did not make the postseason from the previous evaluation (all zero values). We then encoded all teams that made the postseason.  
+
+
+### **Machine Learning Process**
+
++ As all data was already known and recorded previously we were performing supervised machine learning in this experiment.
+
++ Two goals were pursued
+
+    + One set of models trained to predict whether a team would make the college basketball tournament
+
+    + Another set to classify how far a postseason team would progress in the tournament
+
++ Model Number 1:
+    
+    + A few different types of supervised models scored well in accuracy and precision including KNN and Logistic Regression
+
+    + We chose to go with the Random Forest Feature Selection combined with a Logistic Regression
+
+
++ Model Number 2:
+    + The pursuit was to create a model to predict how far a team would go in the Tournament
+
+    + These models proved more difficult to train
+
+    + After training and testing with a Decision Tree, KNN, Logistic Regression, and Random Forest Feature Selector,  we decided to go with the Random Forest Feature Selection paired with a KNN
+
+    + Although this model still didn’t fair especially well, with an accuracy of 58%
+
++ Random Forest Feature Selection
+    + According to this model the columns that had the most relevance when it came to predicting the outcome of the NCAA Tournament were Wins, Adjusted Offensive Efficiency, Adjusted Defensive Efficiency, Power Rating, and Wins Above Bubble
+
+    + Interesting to note, the next highest feature (although was not among the selected features) was Offensive Rebound Rate
+
+
+
 
 One hurdle that our group encountered was that the dataset only contained an abbreviated version of the college's name, and not the official name that could have been looked into on a database for finding the proper coordinates to display on a map. 
 
@@ -35,60 +76,37 @@ In order to answer our question we needed
 
 #### **Visualizations**:
 
-- 1. United States maps.
+- 1. United States map displaying the approximate coordinate location for each participating college.
   
-- 2. Click based bar graph .
+- 2. A side-by-side visual with two drop down lists for teams so that their statistics can be compared.
   
-- 3. Click based linear regression model.
-
-- 4. Random Forest
-
-- 5. 
+- 3. Click-base.
 
 ### Add icons with colors to show HVI levels on top of each county:
-- NEW JS library: BeautifyMarker-Leaflet.BeautifyMarkers https://github.com/masajid390/BeautifyMarker/blob/master/README.md
+- 
 
 
-### **Conclusion**
-- The choropleth visualization 
-- By using the 
-- Our visuals would help prospective homeowners to find the areas there is the least risk for natural disaster damage helping them find their prefered choice in home.
-- Identify trends of change in the relative risk growth in the counties, to identify a relationships between natural disaster risks and changes in home value.
+### **Conclusions**
+- The winner of the 2020 NCAA National Tournament… Gonzaga!
+- With Dayton, San Diego State, and Kansas rounding out our Final Four
+- San Diego State may have been considered an Underdog compared to the other 3 teams
+- Other underdogs that advanced further than expected according to our model was BYU, Oregon, and Maryland
+    - Maryland, predicted 7 seed, making it to the Elite Eight
+
 
 ### **Limitations/Future Possibilities**
+
 - **Limitation**: .
+- Head to head match-up data for predicting outcomes of specific games
+- Models can’t give an exact number
+    - Used probability to determine if team made the tournament
+- Including sports betting odds into the model for improvement
+- Statistics of individual players
+- Article on Wall Street Journal explaining the teams that have had most success and considered favorites in the 2023 Tournament include rosters with older players (Juniors and Seniors) in their Starting Rotation
+
+
+
 - **Future Possibilities**: .
 
 ### Screenshot of Github Pages Site:
 ![Alt text](____ "Github Pages Home Value and Climate Risk")
-
-
-
-
-
-
-
-
-
-
-Current things that we may want to add. 
-previous findings in aggregating the data in machine learning was that the factors in the dataset that showed the greatest predictors on a team's chances of proceeding to the tournament was the following:
-1. 
-
-Doing a random forest model that we could try to find the features that are the most important to determine whether a team makes it to the tournament bracket. create a visual based on that. 
-
-For this, we also dropped seed, because that would be what seed if they made the bracket, so this factor does not matter and removed. 
-
-if they're an NA it didn't make the tournament, give a 0
-1 or 0 for post season whether they made it or not.
-
-
-neural detwork may go better with more available data as there were only 2500 rows, shape: 1841, 55
-
-Current accuracy at 91 percent
-
-Considering putting in a confusion matrix in there to look at the amount of false positives/negatives
-
-One hurdle we encountered with this route in aggregation was that with Neural networking it is hard to interpret the causation or the why for how the network was able to score a high accuracy. 
-
-It may be better to do a logistic regression model.
