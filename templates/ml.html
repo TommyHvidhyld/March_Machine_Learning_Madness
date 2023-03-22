@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>College Basketball</title>
+
+    <!-- D3 library -->
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+
+    <!-- Leaflet JavaScript code -->
+    <script src="https://unpkg.com/leaflet@1.3.3/dist/leaflet.js"
+        integrity="sha512-tAGcCfR4Sc5ZP5ZoVz0quoZDYX5aCtEm/eu1KhSLj2c9eFrylXZknQYmxUssFaVJKvvc0dJQixhGjG2yXWiV9Q=="
+        crossorigin=""></script>
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.3/dist/leaflet.css"
+        integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
+        crossorigin="" />
+
+    <!-- Boostrap Stylesheet -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+
+    <!-- Our CSS -->
+    <link rel="stylesheet" type="text/html" href="static/css/style.css">
+    <link rel="stylesheet" type="text/html" href="static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg mb-5" style="background-color: #B8E0FF;">
+            <div class="container">
+                <a class="navbar-brand" href="#">College Basketball</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav navbar-right">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="../index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="ml.html">Machine Learning</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <!-- Content here -->
+    <div class="container mb-5" style="background-color: #DBF9DB">
+        <div class="container-lg mb-5">
+            <h3>Postseason Prediction Model</h3>
+            <img src="../static/images/roc.png" class="rounded float-start" alt="roc" width="450" 
+            height="350" style="padding: 30px 40px 30px 40px;">
+            <p style="font-size:115%; text-indent: 20px;"> Our 2020 NCAA Tournament Predictions were built off two sets
+                of supervised machine learning models. The first set of models were created and trained to determine
+                which 68 out of 353 teams would make the tournament. After training and testing multiple models,
+                including a K-Means Nearest Neighbors, Logistic Regression, Random Forest Feature Selector and a Deep
+                Learning Neural Network, our team discovered that a Logistic Regression post Random Forest Feature
+                Selection gave us the best accuracy and precision for predicting whether a team would make the
+                postseason tournament or not.
+            </p>
+            <p style="font-size:115%; text-indent: 20px;"> Features that were deemed important according to our Random Forest included:
+                <p ><li style="font-size:115%; text-indent: 20px;">“Wins”: Number of games won</li></p>
+                <p><li style="font-size:115%; text-indent: 20px;">“Adjusted Defensive Efficiency”: An estimate of the defensive efficiency (points allowed per 100
+                    possessions) a team would have against the average Division I offense</li></p>
+                <p><li style="font-size:115%; text-indent: 20px;">“Power Rating”: Chance of beating an average Division 1 team</li></p>
+                <P><li style="font-size:115%; text-indent: 20px;">“Wins Above Bubble.”: Referring to the cut off between making the NCAA March Madness Tournament and not
+                    making it</li></P>
+            </p>
+            
+            <p style="font-size:115%; text-indent: 20px;">ROC Curve is reflected here, also known as the True Positive Rate. The AUC score for our Logistic
+                Regression with the Random Forest Feature Selector was .95. This was the highest AUC score of our
+                models. We went forward with this model as our prediction for whether a team would make the NCAA
+                Tournament.
+            </p>
+            
+        </div>
+    </div>
+    <div class="container mb-5" style="background-color: #DBF9DB">
+        <div class="container-lg">
+            <h3>Tournament Prediction Model</h3>
+            <img src="../static/images/2.png" class="rounded float-end" alt="roc" width="400" 
+            height="300" style="padding: 10px 30px 30px 30px;">
+            <p style="font-size:115%; text-indent: 20px;"> As for the predictions for how well a team would fare once
+                making the NCAA Tournament, we again trained and tested multiple models to predict how far a team would
+                make it in the tournament. This was again supervised machine learning models including a Decision Tree,
+                Extra-Trees Classifier, AdaBoost Classifier, K-Means Nearest Neighbors, Logistic Regression, and a
+                Random Forest. This classification proved to be more challenging than simply determining whether a team
+                made the tournament or not. The accuracy was closer to 53%, with precision significantly lower. The
+                model we chose to move forward with was the Random Forest Feature Selector combined with K-Means Nearest
+                Neighbor. The features included in the Random Forest Feature Selection were the same features as the
+                previous model but adding “Adjusted Offensive Efficiency.” Although many models were trained and tested,
+                it failed to give us exact predictions on the tournament, so combining predictions with precision scores
+                we were able to come up with our best prediction for the 2020 NCAA College Basketball Tournament
+                according to our Machine Learning Models.</p>
+        </div>
+    </div>
+
+    <div class="container-sm mb-5" style="height: 200px"></div>
+    <hr>
+    <footer class="text-muted py-2">
+        <div class="container">
+            <p class="mb-1">Project Team: Tommy Hvidhyld, James Lamotte, Connor Chapman, Evgeniya Kardashov</p>
+        </div>
+    </footer>
+    </div>
+</body>

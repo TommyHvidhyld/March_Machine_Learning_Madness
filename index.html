@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>College Basketball</title>
+
+    <!-- Boostrap Stylesheet -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+
+    <!-- Our CSS -->
+    <link rel="stylesheet" type="text/html" href="static/css/style.css">
+    <link rel="stylesheet" type="text/html" href="static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+    <!-- Leaflet JavaScript code -->
+    <script src="https://unpkg.com/leaflet@1.3.3/dist/leaflet.js"
+        integrity="sha512-tAGcCfR4Sc5ZP5ZoVz0quoZDYX5aCtEm/eu1KhSLj2c9eFrylXZknQYmxUssFaVJKvvc0dJQixhGjG2yXWiV9Q=="
+        crossorigin=""></script>
+
+    <!-- D3 library -->
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+
+    <!-- Marker cluster JavaScript code -->
+    <script type="text/javascript"
+        src="https://unpkg.com/leaflet.markercluster@1.0.3/dist/leaflet.markercluster.js"></script>
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.3/dist/leaflet.css"
+        integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
+        crossorigin="" />
+
+    <!-- Icons -->
+    <script src="js/leaflet.extra-markers.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="css/leaflet.extra-markers.min.css">
+
+
+    <!-- Marker cluster CSS -->
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.0.3/dist/MarkerCluster.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://unpkg.com/leaflet.markercluster@1.0.3/dist/MarkerCluster.Default.css">
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg mb-5" style="background-color: #B8E0FF;">
+            <div class="container">
+                <a class="navbar-brand" href="#">College Basketball</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav navbar-right">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="templates/ml.html">Machine Learning</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <!-- Content here -->
+    <div class="container-lg" style="background-color: #DBF9DB">
+        <div class="container-lg">
+            <h3>About</h3>
+            <p style="font-size:115%; text-indent: 20px;"> In 2020 the Men’s NCAA Division I postseason tournament was
+                cancelled due to Covid-19. Although the teams played a full season, they had to forgo the “March
+                Madness” National Tournament. Based on regular season team metrics this application shows our
+                predictions for the 2020 NCAA National Basketball Tournament. The winners, losers, and Cinderella’s (the
+                underdog’s who performed well despite being ranked low).</p>
+        </div>
+    </div>
+    <div class="container-lg mb-5" style="height: 500px">
+        <div class="row">
+            <div id="featured-3" class="col">
+                <h3> Map</h3>
+            </div>
+        </div>
+        <div class="row h-100">
+            <div id="map" class="col h-100">
+            </div>
+        </div>
+    </div>
+    <div class="container-lg mb-5" style="height: 50px"></div>
+    <div class="container-lg mb-5">
+        <div class="row">
+            <h3>Men's NCAA Predicted Top 16 Teams by Postseason Performance</h3>
+            <div id="myDiv">
+            </div>
+        </div>
+    </div>
+    <div class="container-lg" style="height: 50px"></div>
+    <div class="container-lg mb-3">
+        <div class="container-lg">
+            <h3>Top 16 Team Compared Statistics</h3>
+        </div>
+    </div>
+    <div class="container-lg">
+        <div class="row">
+            <div class="col">
+                <div class="well" style="background-color: #B8E0FF;">
+                    <h4>Team:</h4>
+                    <select id="selDataset1" onchange="paintStats(this.value, 'sample-metadata1')"></select>
+                </div>
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Significant Statistics</h3>
+                    </div>
+                    <div id="sample-metadata1" class="panel-body"></div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="well" style="background-color: #B8E0FF;">
+                    <h4>Team:</h4>
+                    <select id="selDataset2" onchange="paintStats(this.value, 'sample-metadata2')"></select>
+                </div>
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Significant Statistics</h3>
+                    </div>
+                    <div id="sample-metadata2" class="panel-body"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="container-lg mb-5" style="height: 200px"></div>
+    <hr>
+    <footer class="text-muted py-2">
+        <div class="container">
+            <p class="mb-1">Project Team: Tommy Hvidhyld, James Lamotte, Connor Chapman, Evgeniya Kardashov</p>
+        </div>
+    </footer>
+    </div>
+
+    <!-- Our JavaScript file -->
+    <script type="text/javascript" src="static/js/plots.js"></script>
+    <script type="text/javascript" src="static/js/cbb_map copy.js"></script>
+</body>
